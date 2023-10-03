@@ -7,10 +7,11 @@ const container = document.querySelector('#container');
 
 let color = 'black';
 let size = 16;
-let draw = false;
+let isDrawing = false;
+let isRandom = false;
 
 body.addEventListener('mouseup', (event) => {
-  if (event.target.className != 'pixel') draw = false;
+  if (event.target.className != 'pixel') isDrawing = false;
 });
 
 reset.addEventListener('click', () => {
@@ -23,7 +24,7 @@ black.addEventListener('click', () => {
   console.log('Color is changed to black');
 });
 random.addEventListener('click', () => {
-  console.log('Color is changed to random');
+  isRandom = true;
 });
 selectSize.addEventListener('click', () => {
   let sizeBuffer = prompt('Select size of the square');
@@ -47,14 +48,18 @@ function createPixel(){
   pixel.className = 'pixel';
   pixel.addEventListener('mousedown', event => {
     event.preventDefault();
-    draw = true;
+    isDrawing = true;
+    if (isRandom) color = getRandomColor();
     pixel.style.backgroundColor = color;
   });
   pixel.addEventListener('contextmenu', event => event.preventDefault());
-  pixel.addEventListener('mouseup', () => draw = false);
+  pixel.addEventListener('mouseup', () => isDrawing = false);
   pixel.addEventListener('mouseenter', () => {
-    if (draw) pixel.style.backgroundColor = color;
-  })
+    if (isDrawing) {
+      if (isRandom) color = getRandomColor();
+      pixel.style.backgroundColor = color;
+    }
+  });
   return pixel;
 }
 
@@ -69,6 +74,10 @@ function createSquare(){
   container.appendChild(square);
 }
 
-
+function getRandomColor(){
+  return "rgb(" + Math.floor(Math.random() * 256) + ","
+                + Math.floor(Math.random() * 256) + ","
+                + Math.floor(Math.random() * 256) + ")";
+}
 
 createSquare();
