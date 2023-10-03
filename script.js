@@ -1,12 +1,17 @@
+const body = document.querySelector('body');
 const reset = document.querySelector('#reset');
 const black = document.querySelector('#black');
 const random = document.querySelector('#random');
 const selectSize = document.querySelector('#select-size');
 const container = document.querySelector('#container');
-const pixel = document.getElementsByClassName('pixel');
 
 let color = 'black';
 let size = 16;
+let draw = false;
+
+body.addEventListener('mouseup', (event) => {
+  if (event.target.className != 'pixel') draw = false;
+});
 
 reset.addEventListener('click', () => console.log('RESET'));
 black.addEventListener('click', () => {
@@ -14,12 +19,11 @@ black.addEventListener('click', () => {
   console.log('Color is changed to black');
 });
 random.addEventListener('click', () => {
-  color = 'random';
   console.log('Color is changed to random');
 });
 selectSize.addEventListener('click', () => {
   let sizeBuffer = prompt('Select size of the square');
-  while ((!Number.isInteger(+sizeBuffer) || +sizeBuffer <= 0) && sizeBuffer != null) {
+  while ((!Number.isInteger(+sizeBuffer) || +sizeBuffer <= 0) && sizeBuffer !== null) {
     alert('Invalid size');
     sizeBuffer = prompt('Select size of the square');
   }
@@ -31,17 +35,22 @@ selectSize.addEventListener('click', () => {
   }
 });
 
-function getSize(){
-
-  return +sizeBuffer || size;
-}
-
 function createPixel(){
   let pixel = document.createElement('div');
   pixel.style.height = (512/size) + 'px';
   pixel.style.width = (512/size) + 'px';
   pixel.style.backgroundColor = 'white';
   pixel.className = 'pixel';
+  pixel.addEventListener('mousedown', event => {
+    event.preventDefault();
+    draw = true;
+    pixel.style.backgroundColor = color;
+  });
+  pixel.addEventListener('contextmenu', event => event.preventDefault());
+  pixel.addEventListener('mouseup', () => draw = false);
+  pixel.addEventListener('mouseenter', () => {
+    if (draw) pixel.style.backgroundColor = color;
+  })
   return pixel;
 }
 
