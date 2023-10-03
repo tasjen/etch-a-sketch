@@ -19,18 +19,21 @@ reset.addEventListener('click', () => {
   pixel.forEach(e => e.style.backgroundColor = 'white');
   console.log('RESET');
 });
-black.addEventListener('click', () => {
+black.addEventListener('click', (event) => {
   color = 'black';
   isRandom = false;
+  onMode(event.target);
   console.log('Color is changed to black');
 });
-random.addEventListener('click', () => {
+random.addEventListener('click', (event) => {
   isRandom = true;
+  onMode(event.target);
   console.log('Random mode');
 });
-eraser.addEventListener('click', () => {
+eraser.addEventListener('click', (event) => {
   color = 'white';
   isRandom = false;
+  onMode(event.target);
   console.log('Eraser mode');
 });
 selectSize.addEventListener('click', () => {
@@ -40,7 +43,7 @@ selectSize.addEventListener('click', () => {
     sizeBuffer = prompt('Select size of the square');
   }
   if (sizeBuffer !== null){
-    pixelSize = sizeBuffer;
+    pixelSize = +sizeBuffer;
     console.log(`Size of the square is changed to ${pixelSize}x${pixelSize}`);
     container.removeChild(container.firstElementChild);
     createSquare();
@@ -73,7 +76,7 @@ function createPixel(){
 function createSquare(){
   const square = document.createElement('div');
   square.style.height = squareSize + 'px';
-  square.style.width = squareSize + 'px';
+  square.style.width = square.style.height;
   square.id = 'square';
   for(let i = 0; i < pixelSize; i++){
     for(let j = 0; j < pixelSize; j++){
@@ -89,4 +92,12 @@ function getRandomColor(){
                 + Math.floor(Math.random() * 256) + ")";
 }
 
+function onMode(button){
+  const defaultColor = reset.style.backgroundColor;
+  const buttons = document.querySelectorAll('#buttons button');
+  buttons.forEach(e => e.style.backgroundColor = defaultColor);
+  button.style.backgroundColor = 'rgb(144, 144, 144)';
+}
+
 createSquare();
+onMode(black);
