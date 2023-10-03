@@ -10,6 +10,7 @@ let squareSize = 768;
 let pixelSize = 16;
 let isDrawing = false;
 let isRandom = false;
+let focusedButton = black;
 
 window.addEventListener('mouseup', () => isDrawing = false);
 reset.addEventListener('click', () => {
@@ -17,21 +18,21 @@ reset.addEventListener('click', () => {
   pixel.forEach(e => e.style.backgroundColor = 'white');
   console.log('RESET');
 });
-black.addEventListener('click', (event) => {
+black.addEventListener('click', () => {
   color = 'black';
   isRandom = false;
-  onMode(event.target);
+  focusButton(black);
   console.log('Color is changed to black');
 });
-random.addEventListener('click', (event) => {
+random.addEventListener('click', () => {
   isRandom = true;
-  onMode(event.target);
+  focusButton(random);
   console.log('Random mode');
 });
-eraser.addEventListener('click', (event) => {
+eraser.addEventListener('click', () => {
   color = 'white';
   isRandom = false;
-  onMode(event.target);
+  focusButton(eraser);
   console.log('Eraser mode');
 });
 selectSize.addEventListener('click', () => {
@@ -57,15 +58,11 @@ function createPixel(){
   pixel.addEventListener('mousedown', event => {
     event.preventDefault();
     isDrawing = true;
-    if (isRandom) color = getRandomColor();
-    pixel.style.backgroundColor = color;
+    pixel.style.backgroundColor = getCurrentColor();
   });
   pixel.addEventListener('contextmenu', event => event.preventDefault());
   pixel.addEventListener('mouseenter', () => {
-    if (isDrawing) {
-      if (isRandom) color = getRandomColor();
-      pixel.style.backgroundColor = color;
-    }
+    if (isDrawing) pixel.style.backgroundColor = getCurrentColor();
   });
   return pixel;
 }
@@ -89,12 +86,16 @@ function getRandomColor(){
                 + Math.floor(Math.random() * 256) + ")";
 }
 
-function onMode(button){
-  const defaultColor = reset.style.backgroundColor;
-  const buttons = document.querySelectorAll('#buttons button');
-  buttons.forEach(e => e.style.backgroundColor = defaultColor);
+function getCurrentColor(){
+  return isRandom ? getRandomColor() : color;
+}
+
+function focusButton(button){
+  focusedButton.style.backgroundColor = reset.style.backgroundColor;
+  focusedButton = button;
   button.style.backgroundColor = 'rgb(144, 144, 144)';
 }
 
+
 createSquare();
-onMode(black);
+focusButton(black);
