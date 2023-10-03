@@ -13,7 +13,11 @@ body.addEventListener('mouseup', (event) => {
   if (event.target.className != 'pixel') draw = false;
 });
 
-reset.addEventListener('click', () => console.log('RESET'));
+reset.addEventListener('click', () => {
+  const pixel = document.querySelectorAll('.pixel');
+  pixel.forEach(e => e.style.backgroundColor = 'white');
+  console.log('RESET');
+});
 black.addEventListener('click', () => {
   color = 'black';
   console.log('Color is changed to black');
