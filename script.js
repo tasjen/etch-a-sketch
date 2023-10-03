@@ -37,8 +37,9 @@ eraser.addEventListener('click', () => {
 });
 selectSize.addEventListener('click', () => {
   let sizeBuffer = prompt('Select size of the square');
-  while ((!Number.isInteger(+sizeBuffer) || +sizeBuffer <= 0) && sizeBuffer !== null) {
-    alert('Invalid size');
+  while ((!Number.isInteger(+sizeBuffer) || +sizeBuffer <= 0 || +sizeBuffer > 80) && sizeBuffer !== null) {
+    if (+sizeBuffer > 80) alert('the maximum size is 80');
+    else alert('Invalid size');
     sizeBuffer = prompt('Select size of the square');
   }
   if (sizeBuffer !== null){
