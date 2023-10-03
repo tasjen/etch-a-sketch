@@ -1,4 +1,3 @@
-const body = document.querySelector('body');
 const reset = document.querySelector('#reset');
 const black = document.querySelector('#black');
 const random = document.querySelector('#random');
@@ -6,17 +5,15 @@ const eraser = document.querySelector('#eraser');
 const selectSize = document.querySelector('#select-size');
 const container = document.querySelector('#container');
 
-
 let color = 'black';
 let squareSize = 768;
 let pixelSize = 16;
 let isDrawing = false;
 let isRandom = false;
 
-body.addEventListener('mouseup', (event) => {
-  if (event.target.className != 'pixel') isDrawing = false;
+window.addEventListener('mouseup', (event) => {
+  if (event.target.className !== 'pixel') isDrawing = false;
 });
-
 reset.addEventListener('click', () => {
   const pixel = document.querySelectorAll('.pixel');
   pixel.forEach(e => e.style.backgroundColor = 'white');
@@ -53,7 +50,7 @@ selectSize.addEventListener('click', () => {
 function createPixel(){
   let pixel = document.createElement('div');
   pixel.style.height = (squareSize/pixelSize) + 'px';
-  pixel.style.width = (squareSize/pixelSize) + 'px';
+  pixel.style.width = pixel.style.height;
   pixel.style.backgroundColor = 'white';
   pixel.className = 'pixel';
   pixel.addEventListener('mousedown', event => {
