@@ -27,6 +27,7 @@ function createPixel(){
   pixel.style.height = (512/size) + 'px';
   pixel.style.width = (512/size) + 'px';
   pixel.style.backgroundColor = 'white';
+  pixel.className = 'pixel';
   return pixel;
 }
 
