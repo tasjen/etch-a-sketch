@@ -21,8 +21,6 @@ body {
 }
 
 #square {
-  height: 512px;
-  width: 512px;
   display: flex;
   flex-wrap: wrap;
 }

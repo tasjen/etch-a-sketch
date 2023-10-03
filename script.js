@@ -5,8 +5,10 @@ const random = document.querySelector('#random');
 const selectSize = document.querySelector('#select-size');
 const container = document.querySelector('#container');
 
+
 let color = 'black';
-let size = 16;
+let squareSize = 1024;
+let pixelSize = 16;
 let isDrawing = false;
 let isRandom = false;
 
@@ -33,8 +35,8 @@ selectSize.addEventListener('click', () => {
     sizeBuffer = prompt('Select size of the square');
   }
   if (sizeBuffer !== null){
-    size = sizeBuffer;
-    console.log(`Size of the square is changed to ${size}x${size}`);
+    pixelSize = sizeBuffer;
+    console.log(`Size of the square is changed to ${pixelSize}x${pixelSize}`);
     container.removeChild(container.firstElementChild);
     createSquare();
   }
@@ -42,8 +44,8 @@ selectSize.addEventListener('click', () => {
 
 function createPixel(){
   let pixel = document.createElement('div');
-  pixel.style.height = (512/size) + 'px';
-  pixel.style.width = (512/size) + 'px';
+  pixel.style.height = (squareSize/pixelSize) + 'px';
+  pixel.style.width = (squareSize/pixelSize) + 'px';
   pixel.style.backgroundColor = 'white';
   pixel.className = 'pixel';
   pixel.addEventListener('mousedown', event => {
@@ -65,9 +67,11 @@ function createPixel(){
 
 function createSquare(){
   const square = document.createElement('div');
+  square.style.height = squareSize + 'px';
+  square.style.width = squareSize + 'px';
   square.id = 'square';
-  for(let i = 0; i < size; i++){
-    for(let j = 0; j < size; j++){
+  for(let i = 0; i < pixelSize; i++){
+    for(let j = 0; j < pixelSize; j++){
       square.appendChild(createPixel());
     }
   }
