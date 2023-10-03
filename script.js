@@ -8,7 +8,7 @@ const sizeDisplay = document.querySelector('#size-display');
 
 let color = 'black';
 let squareSize = 768;
-let pixelSize = 16;
+let gridSize = 16;
 let isDrawing = false;
 let isRandom = false;
 let focusedButton = black;
@@ -44,16 +44,16 @@ selectSize.addEventListener('click', () => {
     sizeBuffer = prompt('Select size of the square');
   }
   if (sizeBuffer !== null){
-    pixelSize = +sizeBuffer;
+    gridSize = +sizeBuffer;
     container.removeChild(container.firstElementChild);
     createSquare();
-    console.log(`Size of the square is changed to ${pixelSize}x${pixelSize}`);
+    console.log(`Size of the square is changed to ${gridSize}x${gridSize}`);
   }
 });
 
 function createPixel(){
   let pixel = document.createElement('div');
-  pixel.style.height = (squareSize/pixelSize) + 'px';
+  pixel.style.height = (squareSize/gridSize) + 'px';
   pixel.style.width = pixel.style.height;
   pixel.style.backgroundColor = 'white';
   pixel.className = 'pixel';
@@ -74,13 +74,13 @@ function createSquare(){
   square.style.height = squareSize + 'px';
   square.style.width = square.style.height;
   square.id = 'square';
-  for(let i = 0; i < pixelSize; i++){
-    for(let j = 0; j < pixelSize; j++){
+  for(let i = 0; i < gridSize; i++){
+    for(let j = 0; j < gridSize; j++){
       square.appendChild(createPixel());
     }
   }
   container.appendChild(square);
-  sizeDisplay.textContent = `${pixelSize}x${pixelSize}`;
+  sizeDisplay.textContent = `${gridSize}x${gridSize}`;
 }
 
 function getRandomColor(){
