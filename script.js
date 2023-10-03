@@ -4,6 +4,7 @@ const random = document.querySelector('#random');
 const eraser = document.querySelector('#eraser');
 const selectSize = document.querySelector('#select-size');
 const container = document.querySelector('#container');
+const sizeDisplay = document.querySelector('#size-display');
 
 let color = 'black';
 let squareSize = 768;
@@ -79,6 +80,7 @@ function createSquare(){
     }
   }
   container.appendChild(square);
+  sizeDisplay.textContent = `${pixelSize}x${pixelSize}`;
 }
 
 function getRandomColor(){
