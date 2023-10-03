@@ -1,0 +1,27 @@
+body {
+  background-color: rgb(156, 202, 156);
+}
+
+#buttons {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+  gap: 50px;
+}
+
+#buttons button {
+  padding: 20px;
+  font-size: 28px;
+}
+
+#container {
+  display: flex;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+#square {
+  background-color: white;
+  height: 512px;
+  width: 512px;
+}
