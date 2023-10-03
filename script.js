@@ -2,8 +2,8 @@ const reset = document.querySelector('#reset');
 const black = document.querySelector('#black');
 const random = document.querySelector('#random');
 const selectSize = document.querySelector('#select-size');
-
-const square = document.querySelector('#square');
+const container = document.querySelector('#container');
+const pixel = document.getElementsByClassName('pixel');
 
 let color = 'black';
 let size = 16;
@@ -18,9 +18,23 @@ random.addEventListener('click', () => {
   console.log('Color is changed to random');
 });
 selectSize.addEventListener('click', () => {
-  size = +prompt('Select size of the square');
-  console.log(`Size of the square is changed to ${size}x${size}`);
+  let sizeBuffer = prompt('Select size of the square');
+  while ((!Number.isInteger(+sizeBuffer) || +sizeBuffer <= 0) && sizeBuffer != null) {
+    alert('Invalid size');
+    sizeBuffer = prompt('Select size of the square');
+  }
+  if (sizeBuffer !== null){
+    size = sizeBuffer;
+    console.log(`Size of the square is changed to ${size}x${size}`);
+    container.removeChild(container.firstElementChild);
+    createSquare();
+  }
 });
+
+function getSize(){
+
+  return +sizeBuffer || size;
+}
 
 function createPixel(){
   let pixel = document.createElement('div');
@@ -31,8 +45,17 @@ function createPixel(){
   return pixel;
 }
 
-for(let i = 0; i < size; i++){
-  for(let j = 0; j < size; j++){
-    square.appendChild(createPixel());
+function createSquare(){
+  const square = document.createElement('div');
+  square.id = 'square';
+  for(let i = 0; i < size; i++){
+    for(let j = 0; j < size; j++){
+      square.appendChild(createPixel());
+    }
   }
+  container.appendChild(square);
 }
+
+
+
+createSquare();
