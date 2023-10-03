@@ -2,12 +2,13 @@ const body = document.querySelector('body');
 const reset = document.querySelector('#reset');
 const black = document.querySelector('#black');
 const random = document.querySelector('#random');
+const eraser = document.querySelector('#eraser');
 const selectSize = document.querySelector('#select-size');
 const container = document.querySelector('#container');
 
 
 let color = 'black';
-let squareSize = 1024;
+let squareSize = 768;
 let pixelSize = 16;
 let isDrawing = false;
 let isRandom = false;
@@ -23,10 +24,17 @@ reset.addEventListener('click', () => {
 });
 black.addEventListener('click', () => {
   color = 'black';
+  isRandom = false;
   console.log('Color is changed to black');
 });
 random.addEventListener('click', () => {
   isRandom = true;
+  console.log('Random mode');
+});
+eraser.addEventListener('click', () => {
+  color = 'white';
+  isRandom = false;
+  console.log('Eraser mode');
 });
 selectSize.addEventListener('click', () => {
   let sizeBuffer = prompt('Select size of the square');
