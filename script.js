@@ -11,9 +11,7 @@ let pixelSize = 16;
 let isDrawing = false;
 let isRandom = false;
 
-window.addEventListener('mouseup', (event) => {
-  if (event.target.className !== 'pixel') isDrawing = false;
-});
+window.addEventListener('mouseup', () => isDrawing = false);
 reset.addEventListener('click', () => {
   const pixel = document.querySelectorAll('.pixel');
   pixel.forEach(e => e.style.backgroundColor = 'white');
@@ -44,9 +42,9 @@ selectSize.addEventListener('click', () => {
   }
   if (sizeBuffer !== null){
     pixelSize = +sizeBuffer;
-    console.log(`Size of the square is changed to ${pixelSize}x${pixelSize}`);
     container.removeChild(container.firstElementChild);
     createSquare();
+    console.log(`Size of the square is changed to ${pixelSize}x${pixelSize}`);
   }
 });
 
@@ -63,7 +61,6 @@ function createPixel(){
     pixel.style.backgroundColor = color;
   });
   pixel.addEventListener('contextmenu', event => event.preventDefault());
-  pixel.addEventListener('mouseup', () => isDrawing = false);
   pixel.addEventListener('mouseenter', () => {
     if (isDrawing) {
       if (isRandom) color = getRandomColor();
