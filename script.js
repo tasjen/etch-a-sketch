@@ -13,6 +13,7 @@ let isRandom = false;
 let focusedButton = black;
 
 window.addEventListener('mouseup', () => isDrawing = false);
+window.addEventListener('mousedown', (event) => event.preventDefault());
 reset.addEventListener('click', () => {
   const pixel = document.querySelectorAll('.pixel');
   pixel.forEach(e => e.style.backgroundColor = 'white');
