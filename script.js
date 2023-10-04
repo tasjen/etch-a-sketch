@@ -43,9 +43,8 @@ selectSize.addEventListener('click', () => {
     gridSize = prompt('Select size of the square');
   }
   if (gridSize !== null){
-    gridSize = +gridSize;
     container.removeChild(container.firstElementChild);
-    createSquare(gridSize);
+    createSquare(+gridSize);
     console.log(`Size of the square is changed to ${gridSize}x${gridSize}`);
   }
 });
