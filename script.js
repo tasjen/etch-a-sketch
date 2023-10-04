@@ -8,7 +8,6 @@ const sizeDisplay = document.querySelector('#size-display');
 
 let color = 'black';
 let squareSize = 768;
-let gridSize = 16;
 let isDrawing = false;
 let isRandom = false;
 let focusedButton = black;
@@ -37,21 +36,35 @@ eraser.addEventListener('click', () => {
   console.log('Eraser mode');
 });
 selectSize.addEventListener('click', () => {
-  let sizeBuffer = prompt('Select size of the square');
-  while ((!Number.isInteger(+sizeBuffer) || +sizeBuffer <= 0 || +sizeBuffer > 80) && sizeBuffer !== null) {
-    if (+sizeBuffer > 80) alert('the maximum size is 80');
+  let gridSize = prompt('Select size of the square');
+  while ((!Number.isInteger(+gridSize) || +gridSize <= 0 || +gridSize > 80) && gridSize !== null) {
+    if (+gridSize > 80) alert('the maximum size is 80');
     else alert('Invalid size');
-    sizeBuffer = prompt('Select size of the square');
+    gridSize = prompt('Select size of the square');
   }
-  if (sizeBuffer !== null){
-    gridSize = +sizeBuffer;
+  if (gridSize !== null){
+    gridSize = +gridSize;
     container.removeChild(container.firstElementChild);
-    createSquare();
+    createSquare(gridSize);
     console.log(`Size of the square is changed to ${gridSize}x${gridSize}`);
   }
 });
 
-function createPixel(){
+function createSquare(gridSize){
+  const square = document.createElement('div');
+  square.style.height = squareSize + 'px';
+  square.style.width = square.style.height;
+  square.id = 'square';
+  for(let i = 0; i < gridSize; i++){
+    for(let j = 0; j < gridSize; j++){
+      square.appendChild(createPixel(gridSize));
+    }
+  }
+  container.appendChild(square);
+  sizeDisplay.textContent = `${gridSize}x${gridSize}`;
+}
+
+function createPixel(gridSize){
   let pixel = document.createElement('div');
   pixel.style.height = (squareSize/gridSize) + 'px';
   pixel.style.width = pixel.style.height;
@@ -67,20 +80,6 @@ function createPixel(){
     if (isDrawing) pixel.style.backgroundColor = getCurrentColor();
   });
   return pixel;
-}
-
-function createSquare(){
-  const square = document.createElement('div');
-  square.style.height = squareSize + 'px';
-  square.style.width = square.style.height;
-  square.id = 'square';
-  for(let i = 0; i < gridSize; i++){
-    for(let j = 0; j < gridSize; j++){
-      square.appendChild(createPixel());
-    }
-  }
-  container.appendChild(square);
-  sizeDisplay.textContent = `${gridSize}x${gridSize}`;
 }
 
 function getRandomColor(){
@@ -100,5 +99,5 @@ function focusButton(button){
 }
 
 
-createSquare();
+createSquare(16);
 focusButton(black);
