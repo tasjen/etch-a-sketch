@@ -1,5 +1,6 @@
 body {
   background-color: rgb(156, 202, 156);
+  font-family: system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 #buttons {
